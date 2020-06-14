@@ -1,3 +1,6 @@
+import 'package:dpart/base_widget/MyAppBar.dart';
+import 'package:dpart/utils/Constant.dart';
+import 'package:dpart/utils/Log.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -32,6 +35,8 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
+
+
   MyHomePage({Key key, this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
@@ -52,6 +57,13 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Log.init();
+    
+  }
   void _incrementCounter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -72,11 +84,12 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+      appBar:MyAppBar(isBack: false,title: 'Part',right_text: 'ASA',
+        rightAction: ()=>{
+        Log.d("right Action")
+      }
       ),
+
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
