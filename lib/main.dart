@@ -1,5 +1,7 @@
+import 'package:dpart/base_widget/Gaps.dart';
 import 'package:dpart/base_widget/MyAppBar.dart';
 import 'package:dpart/base_widget/MyButton.dart';
+import 'package:dpart/base_widget/MyInputText.dart';
 import 'package:dpart/utils/Constant.dart';
 import 'package:dpart/utils/Log.dart';
 import 'package:flutter/material.dart';
@@ -56,57 +58,39 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+
+
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _pwdController = TextEditingController();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     Log.init();
-    
-  }
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
   }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
+
     return Scaffold(
-      appBar:MyAppBar(isBack: false,title: 'Part',right_text: 'ASA',
+      appBar:MyAppBar(isBack: true,title: '账号登录',right_text: '',
         rightAction: ()=>{
         Log.d("right Action")
       }
       ),
 
       body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
         child: Column(
-
-          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            MyButton(action: (){},width: 200,),
+            Gaps.vGap50,
+            MyInputText(controller: _nameController,labelText: '账号',hintText: '请输入账号',),
+            MyInputText(controller: _pwdController,labelText: '密码',hintText: '请输入密码',),
+            Gaps.vGap24,
+            MyButton(action: (){},width: 200,name: '登录',),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      )
     );
   }
 }

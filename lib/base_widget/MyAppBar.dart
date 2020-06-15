@@ -31,7 +31,8 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       leading: isBack
           ? IconButton(
               onPressed: () {},
-              icon: Image.asset(Constant.backImage),
+              icon: Image.asset(Constant.backImage,width: 30,height: 30,),
+
             )
           : null,
       title: Text(this.title),
@@ -41,7 +42,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
             this.right_text,
             style: TextStyle(fontSize: 20, color: Colors.white),
           ),
-          onPressed: this.rightAction,
+          onPressed: this.rightAction==null?this.rightAction:null,
         ),
         this.rightIcon.isNotEmpty
             ? IconButton(
