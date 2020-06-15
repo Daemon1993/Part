@@ -6,6 +6,17 @@ import 'package:dpart/utils/Constant.dart';
 import 'package:dpart/utils/Log.dart';
 import 'package:flutter/material.dart';
 
+
+import 'package:dio/dio.dart';
+void getHttp() async {
+  try {
+    Response response = await Dio().get("http://www.baidu.com");
+    print(response);
+  } catch (e) {
+    print(e);
+  }
+}
+
 void main() {
   runApp(MyApp());
 }
@@ -14,6 +25,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
+
+
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -73,6 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
 
+
     return Scaffold(
       appBar:MyAppBar(isBack: true,title: '账号登录',right_text: '',
         rightAction: ()=>{
@@ -87,7 +102,9 @@ class _MyHomePageState extends State<MyHomePage> {
             MyInputText(controller: _nameController,labelText: '账号',hintText: '请输入账号',),
             MyInputText(controller: _pwdController,labelText: '密码',hintText: '请输入密码',),
             Gaps.vGap24,
-            MyButton(action: (){},width: 200,name: '登录',),
+            MyButton(action: (){
+              getHttp();
+            },width: 200,name: '登录',),
           ],
         ),
       )
