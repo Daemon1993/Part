@@ -1,4 +1,5 @@
 import 'package:dpart/base_widget/Gaps.dart';
+import 'package:dpart/route/Application.dart';
 import 'package:dpart/utils/Constant.dart';
 import 'package:dpart/utils/Log.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,8 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   String right_text;
   String rightIcon;
 
+  BuildContext pageContext;
+
   MyAppBar({
     Key key,
     this.isBack = true,
@@ -21,16 +24,23 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.title = '',
     this.right_text = '',
     this.rightIcon = '',
+    this.pageContext,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
 
+
+
     return AppBar(
       leading: isBack
           ? IconButton(
-              onPressed: () {},
+              onPressed: () {
+                if(pageContext!=null) {
+                  Application.router.pop(pageContext);
+                }
+              },
               icon: Image.asset(Constant.backImage,width: 30,height: 30,),
 
             )

@@ -59,7 +59,7 @@ class _InutTextState extends State<MyInputText>{
         decoration: InputDecoration(
           hintText: widget.hintText,
           labelText: widget.labelText,
-          prefixIcon: Icon(Icons.person),
+          prefixIcon:widget.prefixIcon,
 
 
         ),
