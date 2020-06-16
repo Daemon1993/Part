@@ -5,27 +5,10 @@ import 'package:dpart/base_widget/MyAppBar.dart';
 import 'package:dpart/utils/Log.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
+class HomePage extends StatefulWidget{
+  String name;
 
-    // TODO: implement build
-    return MaterialApp(
-      title: 'Home',
-      home: _HomePage(context),
-    );
-  }
-
-}
-
-class _HomePage extends StatefulWidget {
-  BuildContext parent_context;
-
-  _HomePage(BuildContext context){
-    parent_context=context;
-  }
-
-
+  HomePage({this.name});
 
   @override
   State<StatefulWidget> createState() {
@@ -34,19 +17,49 @@ class _HomePage extends StatefulWidget {
   }
 }
 
-class _HomePageState extends State<_HomePage> {
+class _HomePageState extends State<HomePage> {
+  // TODO: implement build
+  int _selectIndex=0;
+
   @override
   Widget build(BuildContext context) {
 
-    // TODO: implement build
+    var resultCenter=Text('Home');
+    if(_selectIndex==1){
+      resultCenter=Text('My');
+    }
+
     return Scaffold(
       appBar: MyAppBar(
-        title: 'HomePageState',
-        pageContext: widget.parent_context,
+        title: '首页',
+        pageContext: context,
+        isBack: false,
       ),
       body: Container(
-        color: Colors.red,
+
+        child: Column(
+          children: <Widget>[
+            Text(widget.name),
+            resultCenter
+          ],
+        )
+      ),
+
+      bottomNavigationBar: BottomNavigationBar(
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('首页')),
+
+          BottomNavigationBarItem(icon: Icon(Icons.tag_faces), title: Text('我的')),
+        ],
+        currentIndex: _selectIndex,
+        onTap: _onItemTaped,
       ),
     );
   }
+  void _onItemTaped(int value) {
+    setState(() {
+      _selectIndex=value;
+    });
+  }
+
 }

@@ -1,9 +1,11 @@
 
 
-import 'file:///G:/flutter/github/part/lib/page/PageEmpty.dart';
+
 import 'package:dpart/main.dart';
 import 'package:dpart/page/HomePage.dart';
 import 'package:dpart/page/LoginPage.dart';
+import 'package:dpart/page/PageEmpty.dart';
+import 'package:dpart/utils/Log.dart';
 import 'package:fluro/fluro.dart';
 
 var emptyHandler=new Handler(handlerFunc: (context, parameters){
@@ -15,7 +17,9 @@ var  loginHandler=new Handler(handlerFunc: (context, parameters) {
 });
 
 var  homeHandler=new Handler(handlerFunc: (context, parameters) {
-  return HomePage();
+  final String name = parameters['name']?.first;
+  Log.d('name '+name);
+  return HomePage(name: name,);
 });
 
 

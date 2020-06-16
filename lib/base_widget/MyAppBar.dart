@@ -41,10 +41,10 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
                   Application.router.pop(pageContext);
                 }
               },
-              icon: Image.asset(Constant.backImage,width: 30,height: 30,),
-
+              icon: Icon(Icons.arrow_back),
             )
           : null,
+      automaticallyImplyLeading: false,
       title: Text(this.title),
       actions: <Widget>[
         FlatButton(

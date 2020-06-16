@@ -15,7 +15,8 @@ void getHttp(BuildContext context) async {
     Response response = await Dio().get("http://www.baidu.com");
     print(response);
 
-    Application.router.navigateTo(context, Routes.page_home);
+
+   Routes.navigateTo(context, Routes.page_home,params: {'name':'Daemon'});
 
   } catch (e) {
     print(e);
