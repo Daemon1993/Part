@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 class NewListWidget extends StatelessWidget{
   Contentlist data;
-  NewListWidget(@required this.data);
+  NewListWidget({@required this.data});
 
   @override
   Widget build(BuildContext context) {

@@ -54,7 +54,7 @@ class _HomePageState extends State<HomePage> {
           Contentlist data = datas[index];
 
           return InkWell(
-            child: NewListWidget(data),
+            child: NewListWidget(data: data),
             onTap: () {
               Log.d("click item");
             },

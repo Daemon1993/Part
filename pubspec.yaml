@@ -33,6 +33,9 @@ dependencies:
   fluro: "^1.6.3"
   sprintf: "^4.0.0"
 
+  permission_handler: ^5.0.1
+  rflutter_alert: ^1.0.3
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

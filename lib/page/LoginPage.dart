@@ -1,4 +1,5 @@
 
+
 import 'package:dpart/route/Application.dart';
 import 'package:dpart/route/Routes.dart';
 import 'package:dpart/utils/Log.dart';
@@ -9,6 +10,8 @@ import 'package:dpart/base_widget/Gaps.dart';
 import 'package:dpart/base_widget/MyAppBar.dart';
 import 'package:dpart/base_widget/MyButton.dart';
 import 'package:dpart/base_widget/MyInputText.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 void getHttp(BuildContext context) async {
   try {
@@ -83,8 +86,17 @@ class _MyHomePageState extends State<MyHomePage> {
     // TODO: implement initState
     super.initState();
     Log.init();
+
+
+
   }
 
+  @override
+  void dispose() {
+
+    super.dispose();
+
+  }
   @override
   Widget build(BuildContext context) {
 
@@ -110,4 +122,6 @@ class _MyHomePageState extends State<MyHomePage> {
         )
     );
   }
+
+
 }
