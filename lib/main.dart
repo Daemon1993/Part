@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 
 
 
-void main() async{
+void main(){
 
 
   Router router=Router();
@@ -17,9 +17,6 @@ void main() async{
   Application.router=router;
 
   runApp(MyApp());
-
-  /// 等待Sp初始化完成。
-  await SpUtil.getInstance();
 
 }
 
