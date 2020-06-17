@@ -31,6 +31,7 @@ dependencies:
   flustars: ^0.3.2
   dio: 3.0.9
   fluro: "^1.6.3"
+  sprintf: "^4.0.0"
 
 dev_dependencies:
   flutter_test:
