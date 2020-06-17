@@ -17,6 +17,8 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   BuildContext pageContext;
 
+  TabBar bottom;
+
   MyAppBar({
     Key key,
     this.isBack = true,
@@ -25,15 +27,15 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.right_text = '',
     this.rightIcon = '',
     this.pageContext,
+    this.bottom,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
 
-
-
     return AppBar(
+      bottom: bottom,
       leading: isBack
           ? IconButton(
               onPressed: () {
@@ -64,5 +66,5 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => Size.fromHeight(kToolbarHeight + (bottom?.preferredSize?.height ?? 0.0));
 }

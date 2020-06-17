@@ -5,9 +5,12 @@ import 'package:dpart/base_widget/MyAppBar.dart';
 import 'package:dpart/item_widget/NewListWidget.dart';
 import 'package:dpart/network/NetWorkHandler.dart';
 import 'package:dpart/network/NewListBean.dart';
+import 'package:dpart/page/home/HomeWeiboTab.dart';
 import 'package:dpart/utils/Log.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'home/HomeNewsTab.dart';
 
 class HomePage extends StatefulWidget {
   String name;
@@ -22,74 +25,81 @@ class HomePage extends StatefulWidget {
   }
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   // TODO: implement build
   int _selectIndex = 0;
 
+  List<String> bottoms_module_names = ['首页', '我的'];
+  List<String> home_tabs_names = ['疫情', '微博热门'];
 
-  List<String> title_names=['首页','我的'];
 
-  List<Contentlist> datas = new List<Contentlist>();
+
+  TabController _home_tabcontroller;
+
+  Container center_layout;
+
+  Map<String, Container> _temp_center_layout_caches = new Map();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
 
-    NwtWorkHandler.getNewLists("新冠病毒").then((value) {
-      var decode = json.decode(value);
-      NewListsBean newListsBean = new NewListsBean.fromJson(decode);
+    _home_tabcontroller =
+        TabController(length: home_tabs_names.length, vsync: this);
 
-      setState(() {
-        datas = newListsBean.showapiResBody.pagebean.contentlist;
-      });
-    });
+//    _home_tabcontroller.addListener((){
+//      Log.d("  "+_home_tabcontroller.index.toString());
+//    });
+
+
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _home_tabcontroller.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    var resultCenter = Expanded(
-      child: ListView.separated(
-        itemBuilder: (BuildContext context, int index) {
-          Contentlist data = datas[index];
 
-          return InkWell(
-            child: NewListWidget(data: data),
-            onTap: () {
-              Log.d("click item");
-            },
-          );
-        },
-        separatorBuilder: (BuildContext context, int index) {
-          return Divider(
-            height: 1.0,
-            color: Colors.grey,
-          );
-        },
-        itemCount: datas.length,
-      ),
-    );
+    center_layout = _selectIndex==0?Container(child: TabBarView(
+    controller: _home_tabcontroller,
+    children: <Widget>[HomeNewsTab(), HomeWeiboTab()],
+    )):Container(child: Text('我的'));
 
-    if (_selectIndex == 1) {
-      resultCenter = Expanded(child: Text('My'));
-    }
 
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: MyAppBar(
-        title: title_names[_selectIndex],
+        title: bottoms_module_names[_selectIndex],
         pageContext: context,
         isBack: false,
+        bottom: _selectIndex == 0
+            ? TabBar(
+                tabs: home_tabs_names
+                    .map((e) => Tab(
+                          text: e,
+                        ))
+                    .toList(),
+                controller: _home_tabcontroller,
+              )
+            : null,
       ),
-      body: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[resultCenter],
-      ),
+      body:center_layout,
+//      body: Column(
+//        mainAxisSize: MainAxisSize.min,
+//        children: <Widget>[center_layout],
+//      ),
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text(title_names[0])),
           BottomNavigationBarItem(
-              icon: Icon(Icons.tag_faces), title: Text(title_names[1])),
+              icon: Icon(Icons.home), title: Text(bottoms_module_names[0])),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.tag_faces),
+              title: Text(bottoms_module_names[1])),
         ],
         currentIndex: _selectIndex,
         onTap: _onItemTaped,
@@ -100,7 +110,6 @@ class _HomePageState extends State<HomePage> {
   void _onItemTaped(int value) {
     setState(() {
       _selectIndex = value;
-
     });
   }
 }
