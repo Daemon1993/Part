@@ -65,11 +65,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
 
-    center_layout = _selectIndex==0?Container(child: TabBarView(
-    controller: _home_tabcontroller,
-    children: <Widget>[HomeNewsTab(), HomeWeiboTab()],
-    )):Container(child: Text('我的'));
-
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -88,7 +83,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               )
             : null,
       ),
-      body:center_layout,
+      body:IndexedStack(
+        index: _selectIndex,
+        children: <Widget>[
+          Container(child: TabBarView(
+            controller: _home_tabcontroller,
+            children: <Widget>[HomeNewsTab(), HomeWeiboTab()],
+          )),
+          Container(child: Text('我的')),
+        ],
+      ),
 //      body: Column(
 //        mainAxisSize: MainAxisSize.min,
 //        children: <Widget>[center_layout],
