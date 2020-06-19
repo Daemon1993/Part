@@ -8,6 +8,9 @@ import 'package:flustars/flustars.dart';
 
 import 'package:flutter/material.dart';
 
+import 'network/NetWorkHandler.dart';
+
+
 
 
 void main(){
@@ -16,6 +19,9 @@ void main(){
   Router router=Router();
   Routes.configRoutes(router);
   Application.router=router;
+
+  NetWorkHandler.init();
+
 
   runApp(MyApp());
 
@@ -31,6 +37,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'App',
       onGenerateRoute: Application.router.generator,
+
     );
   }
 }

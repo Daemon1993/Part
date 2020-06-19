@@ -3,13 +3,14 @@
 import 'package:dpart/route/Application.dart';
 import 'package:dpart/route/Routes.dart';
 import 'package:dpart/utils/Log.dart';
+import 'package:dpart/widget/base_widget/Gaps.dart';
+import 'package:dpart/widget/base_widget/MyAppBar.dart';
+import 'package:dpart/widget/base_widget/MyButton.dart';
+import 'package:dpart/widget/base_widget/MyInputText.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 
-import 'package:dpart/base_widget/Gaps.dart';
-import 'package:dpart/base_widget/MyAppBar.dart';
-import 'package:dpart/base_widget/MyButton.dart';
-import 'package:dpart/base_widget/MyInputText.dart';
+
 import 'package:permission_handler/permission_handler.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
@@ -101,7 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-        appBar:MyAppBar(isBack: true,title: '账号登录',right_text: '',
+        appBar:MyAppBar(isBack: true,title: Text('账号登录'),right_text: '',
             rightAction: ()=>{
               Log.d("right Action")
             }

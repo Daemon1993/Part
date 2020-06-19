@@ -1,39 +1,41 @@
 import 'dart:convert';
 
-import 'package:dpart/item_widget/NewListWidget.dart';
 import 'package:dpart/network/NetWorkHandler.dart';
-import 'package:dpart/network/NewListBean.dart';
+import 'package:dpart/network/WeiboListBean.dart';
 import 'package:dpart/utils/Log.dart';
 import 'package:flutter/material.dart';
 
-class HomeNewsTab extends StatefulWidget {
-
+class HomeWeiboTab extends StatefulWidget {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Container(child: Text('微博热门'));
+  }
 
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return _HomeNewsTabState();
+    return _HomeWeiboTab();
   }
 }
 
-class _HomeNewsTabState extends State<HomeNewsTab> with AutomaticKeepAliveClientMixin {
+class _HomeWeiboTab extends State<HomeWeiboTab>
+    with AutomaticKeepAliveClientMixin {
   List<Contentlist> datas = new List<Contentlist>();
-  _HomeNewsTabState();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
 
-    NwtWorkHandler.getNewLists("新冠病毒").then((value) {
+    NetWorkHandler.getWeiboLists().then((value) {
       var decode = json.decode(value);
-      NewListsBean newListsBean = new NewListsBean.fromJson(decode);
-
+      var weiboListBean = WeiboListBean.fromJson(decode);
       setState(() {
-        datas = newListsBean.showapiResBody.pagebean.contentlist;
+        datas = weiboListBean.showapiResBody.pagebean.contentlist;
       });
     });
-
+//
   }
 
   @override
@@ -44,7 +46,11 @@ class _HomeNewsTabState extends State<HomeNewsTab> with AutomaticKeepAliveClient
         Contentlist data = datas[index];
 
         return InkWell(
-          child: NewListWidget(data: data),
+          child: Container(
+            child: Text(data.name),
+            height: 50,
+            alignment: Alignment.center,
+          ),
           onTap: () {
             Log.d("click item");
           },
@@ -57,10 +63,9 @@ class _HomeNewsTabState extends State<HomeNewsTab> with AutomaticKeepAliveClient
         );
       },
       itemCount: datas.length,
-    )
+    );
     ;
   }
-
 
   @override
   // TODO: implement wantKeepAlive

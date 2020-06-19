@@ -1,21 +1,24 @@
 import 'dart:convert';
 
-import 'package:dpart/base_widget/Gaps.dart';
-import 'package:dpart/base_widget/MyAppBar.dart';
-import 'package:dpart/item_widget/NewListWidget.dart';
+
 import 'package:dpart/network/NetWorkHandler.dart';
 import 'package:dpart/network/NewListBean.dart';
-import 'package:dpart/page/home/HomeWeiboTab.dart';
+import 'package:dpart/network/response/GankHotResponse.dart';
+import 'file:///G:/flutter/github/part/lib/page/hot/HotPage.dart';
+import 'file:///G:/flutter/github/part/lib/page/types/HomeWeiboTab.dart';
+import 'package:dpart/page/types/TypesPage.dart';
 import 'package:dpart/utils/Log.dart';
+import 'package:dpart/widget/base_widget/MyAppBar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'home/HomeNewsTab.dart';
+import 'girl/GirlPage.dart';
+import 'types/HomeNewsTab.dart';
 
 class HomePage extends StatefulWidget {
   String name;
 
-  HomePage({Key key, this.name});
+  HomePage({Key key, this.name}):super(key:key);
 
   @override
   State<StatefulWidget> createState() {
@@ -29,29 +32,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   // TODO: implement build
   int _selectIndex = 0;
 
-  List<String> bottoms_module_names = ['首页', '我的'];
-  List<String> home_tabs_names = ['疫情', '微博热门'];
-
-
-
-  TabController _home_tabcontroller;
-
-  Container center_layout;
-
-  Map<String, Container> _temp_center_layout_caches = new Map();
+  List<String> bottoms_module_names = ['热门','分类','福利','W安卓','我的'];
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-
-    _home_tabcontroller =
-        TabController(length: home_tabs_names.length, vsync: this);
-
-//    _home_tabcontroller.addListener((){
-//      Log.d("  "+_home_tabcontroller.index.toString());
-//    });
-
 
   }
 
@@ -59,7 +45,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    _home_tabcontroller.dispose();
+
   }
 
   @override
@@ -67,43 +53,39 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
 
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: MyAppBar(
-        title: bottoms_module_names[_selectIndex],
-        pageContext: context,
-        isBack: false,
-        bottom: _selectIndex == 0
-            ? TabBar(
-                tabs: home_tabs_names
-                    .map((e) => Tab(
-                          text: e,
-                        ))
-                    .toList(),
-                controller: _home_tabcontroller,
-              )
-            : null,
-      ),
+
+
+
       body:IndexedStack(
         index: _selectIndex,
         children: <Widget>[
-          Container(child: TabBarView(
-            controller: _home_tabcontroller,
-            children: <Widget>[HomeNewsTab(), HomeWeiboTab()],
-          )),
-          Container(child: Text('我的')),
+          HotPage() ,
+         TypesPage(),
+         GirlPage(),
+
         ],
       ),
-//      body: Column(
-//        mainAxisSize: MainAxisSize.min,
-//        children: <Widget>[center_layout],
-//      ),
+
       bottomNavigationBar: BottomNavigationBar(
+        selectedFontSize: 12,
+        unselectedFontSize: 12,
+        //设置显示的模式
+        type: BottomNavigationBarType.fixed,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
               icon: Icon(Icons.home), title: Text(bottoms_module_names[0])),
           BottomNavigationBarItem(
-              icon: Icon(Icons.tag_faces),
+              icon: Icon(Icons.subject),
               title: Text(bottoms_module_names[1])),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.tag_faces),
+              title: Text(bottoms_module_names[2])),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.android),
+              title: Text(bottoms_module_names[3])),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              title: Text(bottoms_module_names[4])),
         ],
         currentIndex: _selectIndex,
         onTap: _onItemTaped,

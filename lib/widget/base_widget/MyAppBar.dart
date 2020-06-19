@@ -1,8 +1,10 @@
-import 'package:dpart/base_widget/Gaps.dart';
+
 import 'package:dpart/route/Application.dart';
 import 'package:dpart/utils/Constant.dart';
 import 'package:dpart/utils/Log.dart';
 import 'package:flutter/material.dart';
+
+import 'Gaps.dart';
 
 /**
  * 自定义AppBar 控制左右中间显示
@@ -11,7 +13,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   bool isBack;
   VoidCallback rightAction;
 
-  String title;
+  Widget title;
   String right_text;
   String rightIcon;
 
@@ -23,7 +25,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     Key key,
     this.isBack = true,
     this.rightAction,
-    this.title = '',
+    this.title,
     this.right_text = '',
     this.rightIcon = '',
     this.pageContext,
@@ -47,7 +49,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
             )
           : null,
       automaticallyImplyLeading: false,
-      title: Text(this.title),
+      title: this.title,
       actions: <Widget>[
         FlatButton(
           child: Text(
@@ -66,5 +68,5 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight + (bottom?.preferredSize?.height ?? 0.0));
+  Size get preferredSize => Size.fromHeight(title!=null?kToolbarHeight:0 + (bottom?.preferredSize?.height ?? 0.0));
 }

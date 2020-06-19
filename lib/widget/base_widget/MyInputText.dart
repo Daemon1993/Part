@@ -23,11 +23,12 @@ class MyInputText extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return _InutTextState();
+    return _InputTextState();
   }
+
 }
 
-class _InutTextState extends State<MyInputText>{
+class _InputTextState extends State<MyInputText>{
 
   @override
   void initState() {
@@ -44,6 +45,7 @@ class _InutTextState extends State<MyInputText>{
     // TODO: implement dispose
     super.dispose();
     widget.controller.dispose();
+
   }
   @override
   Widget build(BuildContext context) {
