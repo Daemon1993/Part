@@ -60,7 +60,7 @@ class NetWorkHandler{
 
 
   static final String Gank_GH_Hot_List="/hot/views/category/GanHuo/count/20";
-  static final String Gank_Girl_Random_list="/random/category/Girl/type/Girl/count/10";
+  static final String Gank_Girl_Random_list="/random/category/Girl/type/Girl/count/20";
 
   static Future<String> getGankHotList() async{
 
