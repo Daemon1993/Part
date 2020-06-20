@@ -76,9 +76,9 @@ android {
         }
         debug {
             signingConfig signingConfigs.release
-            ndk {
-                abiFilters "armeabi-v7a", "x86" // 保留这三种架构的CPU
-            }
+//            ndk {
+//                abiFilters  "armeabi-v7a"// 保留这三种架构的CPU
+//            }
         }
 
 //        release {

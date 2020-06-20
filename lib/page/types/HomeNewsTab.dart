@@ -47,6 +47,8 @@ class _HomeNewsTabState extends State<HomeNewsTab> with AutomaticKeepAliveClient
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     // TODO: implement build
     return EasyRefresh(
       child:  ListView.builder(

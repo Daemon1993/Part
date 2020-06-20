@@ -1,6 +1,9 @@
 
-import 'file:///G:/flutter/github/part/lib/page/types/HomeNewsTab.dart';
-import 'file:///G:/flutter/github/part/lib/page/types/HomeWeiboTab.dart';
+import 'package:dpart/utils/Log.dart';
+
+import 'HomeNewsTab.dart';
+import 'HomeWeiboTab.dart';
+
 import 'package:dpart/widget/base_widget/MyAppBar.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +17,7 @@ class TypesPage extends StatefulWidget{
 
 }
 
-class _TypesPage extends State<TypesPage> with TickerProviderStateMixin{
+class _TypesPage extends State<TypesPage> with TickerProviderStateMixin,AutomaticKeepAliveClientMixin{
   List<String> home_tabs_names = ['疫情', '微博热门'];
 
 
@@ -24,6 +27,8 @@ class _TypesPage extends State<TypesPage> with TickerProviderStateMixin{
   void initState() {
     // TODO: implement initState
     super.initState();
+    Log.d("_TypesPage initState");
+
     _home_tabcontroller =
         TabController(length: home_tabs_names.length, vsync: this);
   }
@@ -36,6 +41,8 @@ class _TypesPage extends State<TypesPage> with TickerProviderStateMixin{
   }
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+    Log.d("_TypesPage build");
     // TODO: implement build
     return Scaffold(
       appBar: MyAppBar(
@@ -62,5 +69,10 @@ class _TypesPage extends State<TypesPage> with TickerProviderStateMixin{
 
 
   }
+
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive =>true;
 
 }

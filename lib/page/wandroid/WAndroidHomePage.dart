@@ -1,29 +1,32 @@
+
 import 'dart:convert';
 
 import 'package:dpart/network/NetWorkHandler.dart';
-import 'package:dpart/network/response/GankHotResponse.dart';
+import 'package:dpart/network/response/WAndroidHomeResponse.dart';
 import 'package:dpart/utils/Log.dart';
 import 'package:dpart/widget/base_widget/LoadingBaseLayout.dart';
 import 'package:dpart/widget/base_widget/MyAppBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 
-import 'HotItemLayout.dart';
+import 'WAndroidHomeItem.dart';
 
-class HotPage extends StatefulWidget {
+class WAndroidHomePage extends StatefulWidget{
+
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return _HotPageState();
+    return _WAndroidHomePage();
   }
+
 }
 
-class _HotPageState extends State<HotPage> with AutomaticKeepAliveClientMixin{
-  List<Data> datas = new List<Data>();
+class _WAndroidHomePage extends State<WAndroidHomePage> with AutomaticKeepAliveClientMixin{
+  bool loading=true;
 
-  EasyRefreshController _controller = new EasyRefreshController();
+  List<Datas> datas=new List<Datas>();
 
-  bool loading = true;
+  EasyRefreshController _controller=new EasyRefreshController();
 
   @override
   void dispose() {
@@ -36,63 +39,66 @@ class _HotPageState extends State<HotPage> with AutomaticKeepAliveClientMixin{
   void initState() {
     // TODO: implement initState
     super.initState();
+    Log.d("_WAndroidHomePage initState");
+    getDatas();
 
-    Log.d("_HotPageState initState");
-    getDatas(true);
+
   }
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    Log.d("_HotPageState build");
     super.build(context);
+    Log.d("_WAndroidHomePage build");
 
     return Scaffold(
-      appBar:const MyAppBar(
-        title: Text('热门'),
+      appBar: const MyAppBar(
+        title: Text("WAndroid"),
         isBack: false,
       ),
       body: LoadingBaseLayout(
-        child_widget: EasyRefresh(
-          child: ListView.builder(
-            itemBuilder: (BuildContext context, int index) {
-              Data data = datas[index];
-
-              return HotItemLayout(data: data);
-            },
+        child_widget:EasyRefresh(
+          child: ListView.builder(itemBuilder: (context,index){
+            Datas data = datas[index];
+            return WAndroidHomeItem(data: data,);
+          },
             itemCount: datas.length,
           ),
-          controller: _controller,
+
           header: ClassicalHeader(),
+          controller: _controller,
           onRefresh: () async{
-            Log.d("onrefresh");
-            getDatas(true);
+            getDatas();
           },
           enableControlFinishRefresh: false,
-        ),
-        loading: loading,
-        tag: "HotPage",
+        ) ,
+        loading:loading,
+        tag:'_WAndroidHomePage',
       ),
     );
+
   }
 
-  void getDatas(bool isfresh) {
-    NetWorkHandler.getGankHotList().then((value) {
+  void getDatas() {
+
+    NetWorkHandler.getWandroidList(0).then((value){
+
       var decode = json.decode(value);
-      GankHotResponse gankHotResponse = new GankHotResponse.fromJson(decode);
+      WAndroidHomeResponse wAndroidHomeResponse = WAndroidHomeResponse.fromJson(decode);
 
-      if (isfresh) {
-        datas.clear();
-      }
+      datas.clear();
 
-      datas.addAll(gankHotResponse.data);
+      datas.addAll(wAndroidHomeResponse.data.datas);
+
       setState(() {
-        loading = false;
+        loading=false;
       });
+
     });
   }
 
   @override
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
+
 }

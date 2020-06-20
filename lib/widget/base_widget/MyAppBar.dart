@@ -10,18 +10,18 @@ import 'Gaps.dart';
  * 自定义AppBar 控制左右中间显示
  */
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
-  bool isBack;
-  VoidCallback rightAction;
+  final bool isBack;
+  final VoidCallback rightAction;
 
-  Widget title;
-  String right_text;
-  String rightIcon;
+  final Widget title;
+  final String right_text;
+  final String rightIcon;
 
-  BuildContext pageContext;
+  final BuildContext pageContext;
 
-  TabBar bottom;
+  final TabBar bottom;
 
-  MyAppBar({
+  const MyAppBar({
     Key key,
     this.isBack = true,
     this.rightAction,

@@ -38,6 +38,7 @@ dependencies:
 
   permission_handler: ^5.0.1
   rflutter_alert: ^1.0.3
+  webview_flutter: ^0.3.22+1
 
 dev_dependencies:
   flutter_test:

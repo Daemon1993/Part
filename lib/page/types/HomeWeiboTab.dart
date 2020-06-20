@@ -27,6 +27,7 @@ class _HomeWeiboTab extends State<HomeWeiboTab>
   void initState() {
     // TODO: implement initState
     super.initState();
+    Log.d("_HomeWeiboTab initState");
 
     NetWorkHandler.getWeiboLists().then((value) {
       var decode = json.decode(value);
@@ -40,6 +41,8 @@ class _HomeWeiboTab extends State<HomeWeiboTab>
 
   @override
   Widget build(BuildContext context) {
+    Log.d("_HomeWeiboTab build");
+    super.build(context);
     // TODO: implement build
     return ListView.separated(
       itemBuilder: (BuildContext context, int index) {

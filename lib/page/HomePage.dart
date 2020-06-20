@@ -4,15 +4,17 @@ import 'dart:convert';
 import 'package:dpart/network/NetWorkHandler.dart';
 import 'package:dpart/network/NewListBean.dart';
 import 'package:dpart/network/response/GankHotResponse.dart';
-import 'file:///G:/flutter/github/part/lib/page/hot/HotPage.dart';
-import 'file:///G:/flutter/github/part/lib/page/types/HomeWeiboTab.dart';
+
 import 'package:dpart/page/types/TypesPage.dart';
+import 'package:dpart/page/user/UserPage.dart';
+import 'package:dpart/page/wandroid/WAndroidHomePage.dart';
 import 'package:dpart/utils/Log.dart';
 import 'package:dpart/widget/base_widget/MyAppBar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'girl/GirlPage.dart';
+import 'hot/HotPage.dart';
 import 'types/HomeNewsTab.dart';
 
 class HomePage extends StatefulWidget {
@@ -34,10 +36,21 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   List<String> bottoms_module_names = ['热门','分类','福利','W安卓','我的'];
 
+  final bodyList=[
+    HotPage() ,
+    TypesPage(),
+    GirlPage(),
+    WAndroidHomePage(),
+    UserPage(url:'https://github.com/Daemon1993',title:'Daemon')
+  ];
+
+  final pageController=PageController();
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+
 
   }
 
@@ -45,7 +58,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   void dispose() {
     // TODO: implement dispose
     super.dispose();
+    pageController.dispose();
 
+  }
+
+  void onPageChanged(int index) {
+    setState(() {
+      _selectIndex=index;
+    });
   }
 
   @override
@@ -54,16 +74,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
     return Scaffold(
 
-
-
-      body:IndexedStack(
-        index: _selectIndex,
-        children: <Widget>[
-          HotPage() ,
-         TypesPage(),
-         GirlPage(),
-
-        ],
+      body:PageView(
+        controller: pageController,
+        onPageChanged: onPageChanged,
+        children:bodyList,
+        physics: NeverScrollableScrollPhysics(),
       ),
 
       bottomNavigationBar: BottomNavigationBar(
@@ -94,8 +109,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   }
 
   void _onItemTaped(int value) {
+    pageController.jumpToPage(value);
+
     setState(() {
       _selectIndex = value;
     });
   }
+
+
 }
