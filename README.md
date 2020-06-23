@@ -9,4 +9,5 @@
 [gank.io ](https://gank.io/)
 [wanandroid  ](https://wanandroid.com/)
 
-![录屏](https://github.com/Daemon1993/Part/ddd/record_ddd.mp4)
+![录屏](https://github.com/Daemon1993/Part/blob/master/ddd/record_ddd.mp4)
+
