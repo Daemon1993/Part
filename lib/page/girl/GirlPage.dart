@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 import 'package:dpart/network/NetWorkHandler.dart';
@@ -9,25 +8,21 @@ import 'package:dpart/widget/base_widget/MyAppBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 
-class GirlPage extends StatefulWidget{
-
-
+class GirlPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
     return _GirlPage();
   }
-
-
 }
 
-class _GirlPage extends State<GirlPage> with AutomaticKeepAliveClientMixin{
-  List<Data> datas=new List<Data>();
+class _GirlPage extends State<GirlPage> with AutomaticKeepAliveClientMixin {
+  List<Data> datas = new List<Data>();
 
-  EasyRefreshController _controlor=new EasyRefreshController();
+  EasyRefreshController _controlor = new EasyRefreshController();
 
-  bool loading=true;
-  bool isFirst=true;
+  bool loading = true;
+  bool isFirst = true;
 
   @override
   void initState() {
@@ -37,15 +32,13 @@ class _GirlPage extends State<GirlPage> with AutomaticKeepAliveClientMixin{
     getDatas();
   }
 
-  void outLazyData(){
-    if(isFirst){
+  void outLazyData() {
+    if (isFirst) {
       getDatas();
-    }else{
+    } else {
       Log.d("outLazyData 拦截");
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -53,63 +46,65 @@ class _GirlPage extends State<GirlPage> with AutomaticKeepAliveClientMixin{
     super.build(context);
     Log.d("_GirlPage build");
     return Scaffold(
-      appBar:const MyAppBar(
-        title: Text('福利'),
-        isBack: false,
-      ),
-      body:LoadingBaseLayout(child_widget:  EasyRefresh(
-        child:  GridView.builder(gridDelegate:
-        SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3,mainAxisSpacing: 5,crossAxisSpacing: 5),
-          itemBuilder: (context,index){
-            return Container(
-              height: 80,
-              child: Image.network(datas[index].url),
-            );
-          },
-          itemCount: datas.length,
+        appBar: const MyAppBar(
+          title: Text('福利'),
+          isBack: false,
         ),
-        enableControlFinishRefresh: false,
-        controller: _controlor,
-        header: ClassicalHeader(),
-        onRefresh: () async {
-          Log.d("onrefresh");
-          getDatas();
-        },
-      ),loading: loading,tag: "GirlPage",)
-
-    );
+        body: LoadingBaseLayout(
+          child_widget: EasyRefresh(
+            child: GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3, mainAxisSpacing: 5, crossAxisSpacing: 5),
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                    onTap: () {
+                      Log.d("-----onTap");
+                    },
+                    child: Container(
+                      height: 80,
+                      child: Image.network(datas[index].url),
+                    ));
+              },
+              itemCount: datas.length,
+            ),
+            enableControlFinishRefresh: false,
+            controller: _controlor,
+            header: ClassicalHeader(),
+            onRefresh: () async {
+              Log.d("onrefresh");
+              getDatas();
+            },
+          ),
+          loading: loading,
+          tag: "GirlPage",
+        ));
   }
 
   void getDatas() {
+    NetWorkHandler.getGank_Girl_Random_list().then((value) {
+      var decode = json.decode(value);
 
-     NetWorkHandler.getGank_Girl_Random_list().then((value) {
+      GirlRandomResponse girlRandomResponse =
+          GirlRandomResponse.fromJson(decode);
 
-       var decode = json.decode(value);
+      datas.clear();
 
-       GirlRandomResponse girlRandomResponse = GirlRandomResponse.fromJson(decode);
+      datas.addAll(girlRandomResponse.data);
 
-       datas.clear();
-
-       datas.addAll(girlRandomResponse.data);
-
-       setState(() {
-         loading=false;
-       });
-
-     },onError: (e){
-        Log.d("onError0 "+e.toString());
-        setState(() {
-          loading=false;
-        });
-     }).catchError((e){
-       Log.d("onError1 "+e.toString());
-
-     });
-
+      setState(() {
+        loading = false;
+      });
+    }, onError: (e) {
+      Log.d("onError0 " + e.toString());
+      setState(() {
+        loading = false;
+      });
+    }).catchError((e) {
+      Log.d("onError1 " + e.toString());
+    });
   }
 
   @override
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
-
 }

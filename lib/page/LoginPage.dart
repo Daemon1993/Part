@@ -102,7 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-        appBar:MyAppBar(isBack: true,title: Text('账号登录'),right_text: '',
+        appBar:MyAppBar(isBack: false,title: Text('账号登录'),right_text: '',
             rightAction: ()=>{
               Log.d("right Action")
             }

@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 class Routes{
   static String page_login="/";
   static String page_home="/home";
+  static String page_iamge_preview="/iamge_preview";
 
 
   static void configRoutes(Router router){

@@ -3,9 +3,11 @@
 
 import 'dart:convert';
 
+
 import 'package:dpart/network/NetWorkHandler.dart';
 import 'package:dpart/network/NewListBean.dart';
 import 'package:dpart/utils/Log.dart';
+import 'package:dpart/widget/base_widget/LoadingBaseLayout.dart';
 import 'package:dpart/widget/item_widget/NewListWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
@@ -26,7 +28,7 @@ class _HomeNewsTabState extends State<HomeNewsTab> with AutomaticKeepAliveClient
   List<Contentlist> datas = new List<Contentlist>();
 
   EasyRefreshController _controller = EasyRefreshController();
-
+  bool _loading=true;
 
   @override
   void dispose() {
@@ -50,36 +52,41 @@ class _HomeNewsTabState extends State<HomeNewsTab> with AutomaticKeepAliveClient
     super.build(context);
 
     // TODO: implement build
-    return EasyRefresh(
-      child:  ListView.builder(
-        itemBuilder: (BuildContext context, int index) {
-          Contentlist data = datas[index];
 
-          return InkWell(
-            child: NewListWidget(data: data),
-            onTap: () {
-              Log.d("click item");
+    return
+      LoadingBaseLayout(
+        loading: _loading,
+        child_widget: EasyRefresh(
+          child:  ListView.builder(
+            itemBuilder: (BuildContext context, int index) {
+              Contentlist data = datas[index];
+
+              return InkWell(
+                child: NewListWidget(data: data),
+                onTap: () {
+                  Log.d("click item");
+                },
+              );
             },
-          );
-        },
-        itemCount: datas.length,
-      ),
-      controller: _controller,
+            itemCount: datas.length,
+          ),
+          controller: _controller,
 
-      header: ClassicalHeader(),
-      footer: ClassicalFooter(),
+          header: ClassicalHeader(),
+          footer: ClassicalFooter(),
 
-      onRefresh: () async{
-        Log.d("onrefresh");
-        getDatas(true);
-      },
-      onLoad: () async{
-        Log.d("onLoad");
-        getDatas(false);
-      },
-      enableControlFinishRefresh: false,
-      enableControlFinishLoad: true,
-    );
+          onRefresh: () async{
+            Log.d("onrefresh");
+            getDatas(true);
+          },
+          onLoad: () async{
+            Log.d("onLoad");
+            getDatas(false);
+          },
+          enableControlFinishRefresh: false,
+          enableControlFinishLoad: true,
+        ) ,
+      );
   }
 
 
@@ -98,7 +105,9 @@ class _HomeNewsTabState extends State<HomeNewsTab> with AutomaticKeepAliveClient
         datas.clear();
       }
 
+
       setState(() {
+        _loading=false;
           datas.addAll(newListsBean.showapiResBody.pagebean.contentlist);
       });
 
