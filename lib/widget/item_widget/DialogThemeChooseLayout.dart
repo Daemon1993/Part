@@ -27,8 +27,8 @@ class _DialogThemeChooseLayoutState extends State<DialogThemeChooseLayout> {
                 appinfo.setTheme(element);
               },
               child: Container(
-                width: 50.0,
-                height: 50.0,
+                width: 30.0,
+                height: 30.0,
                 color: ThemeUtils.themeColorMap[element],
               ))));
     });
