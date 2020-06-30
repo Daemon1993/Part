@@ -81,20 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             children: <Widget>[
               CounterLayout(),
-              Gaps.vGap10,
-              MyButton(
-                action: () async {
-                  await showDialog(
-                      context: context,
-                      builder: (context) {
-                        return Dialog(
-                          child: DialogThemeChooseLayout(),
-                        );
-                      });
-                },
-                name: '改变主题色',
-                width: 200,
-              ),
+
               Gaps.vGap50,
               MyInputText(
                 controller: _nameController,

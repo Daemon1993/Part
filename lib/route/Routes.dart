@@ -10,11 +10,13 @@ class Routes{
   static String page_login="/";
   static String page_home="/home";
   static String page_iamge_preview="/iamge_preview";
+  static String page_webview="/webview";
 
 
   static void configRoutes(Router router){
     router.define(page_home, handler: homeHandler);
     router.define(page_login, handler: loginHandler);
+    router.define(page_webview, handler: webviewHandler);
     router.notFoundHandler=emptyHandler;
   }
 

@@ -6,6 +6,7 @@ import 'package:dpart/network/NewListBean.dart';
 import 'package:dpart/network/response/GankHotResponse.dart';
 
 import 'package:dpart/page/types/TypesPage.dart';
+import 'package:dpart/page/user/MyPage.dart';
 import 'package:dpart/page/user/UserPage.dart';
 import 'package:dpart/page/wandroid/WAndroidHomePage.dart';
 import 'package:dpart/utils/Log.dart';
@@ -41,7 +42,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     TypesPage(),
     GirlPage(),
     WAndroidHomePage(),
-    UserPage(url:'https://github.com/Daemon1993',title:'Daemon')
+    MyPage(),
+//    UserPage(url:'https://github.com/Daemon1993',title:'Daemon')
   ];
 
   final pageController=PageController();
