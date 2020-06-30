@@ -3,7 +3,7 @@
 
 import 'package:dpart/main.dart';
 import 'package:dpart/page/HomePage.dart';
-import 'package:dpart/page/LoginPage.dart';
+import 'file:///G:/flutter/github/part/lib/page/login/LoginPage.dart';
 import 'package:dpart/page/PageEmpty.dart';
 import 'package:dpart/utils/Log.dart';
 import 'package:fluro/fluro.dart';
